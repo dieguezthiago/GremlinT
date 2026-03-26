@@ -18,6 +18,7 @@ public static class G
     }
 
     public static VertexQuery<T> V<T>(Guid tenantId)
+        where T : Vertex
     {
         return new VertexQuery<T>(new StringBuilder(
             $"g.V().hasLabel('{typeof(T).Name}').has('tenantId','{tenantId}')"
@@ -32,6 +33,7 @@ public static class G
     }
 
     public static VertexQuery<T> V<T>(FullyQualifiedId fullyQualifiedId)
+        where T : Vertex
     {
         return new VertexQuery<T>(new StringBuilder(
             $"g.V('{fullyQualifiedId.ElementId}').hasLabel('{typeof(T).Name}').has('tenantId','{fullyQualifiedId.TenantId}')"
@@ -46,6 +48,7 @@ public static class G
     }
 
     public static EdgeQuery E<T>(Guid tenantId)
+        where T : Edge
     {
         return new EdgeQuery(new StringBuilder(
             $"g.E().hasLabel('{typeof(T).Name}').has('tenantId','{tenantId}')"
@@ -60,6 +63,7 @@ public static class G
     }
 
     public static EdgeQuery E<T>(FullyQualifiedId fullyQualifiedId)
+        where T : Edge
     {
         return new EdgeQuery(new StringBuilder(
             $"g.E('{fullyQualifiedId.ElementId}').hasLabel('{typeof(T).Name}').has('tenantId','{fullyQualifiedId.TenantId}')"

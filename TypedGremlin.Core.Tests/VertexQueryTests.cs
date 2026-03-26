@@ -1,13 +1,26 @@
+using JetBrains.Annotations;
+
 namespace TypedGremlin.Core.Tests;
 
 public class VertexQueryTests
 {
     private static readonly Guid TenantId = Guid.Parse("11111111-1111-1111-1111-111111111111");
 
-    private class Person { }
-    private class Employee { }
-    private class Knows { }
-    private class PersonView { public string Name { get; set; } = ""; public int Age { get; set; } }
+    [UsedImplicitly]
+    private class Person : Vertex;
+
+    [UsedImplicitly]
+    private class Car : Vertex;
+
+    [UsedImplicitly]
+    private class Owns : Edge;
+
+    [UsedImplicitly]
+    private class PersonView
+    {
+        public string Name { get; set; } = "";
+        public int Age { get; set; }
+    }
 
     [Fact]
     public void Out_WithLabel_AppendsOutStep()
@@ -137,5 +150,19 @@ public class VertexQueryTests
         G.V(TenantId).AddE("knows").From("v1").To("v2").Property("since", "2020")
             .ToString()
             .Is($"g.V().has('tenantId','{TenantId}').addE('knows').from('v1').to('v2').property('since','2020')");
+    }
+
+    [Fact]
+    public void V_WithVertexType_AppendsHasLabelAndReturnsTyped()
+    {
+        G.V<Person>(TenantId).Out<Owns>().V<Car>()
+            .ToString()
+            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').out('Owns').hasLabel('Car')");
+    }
+
+    [Fact]
+    public void V_WithVertexType_ReturnsTypedVertexQuery()
+    {
+        G.V<Person>(TenantId).Out<Owns>().V<Car>().IsInstanceOf<VertexQuery<Car>>();
     }
 }

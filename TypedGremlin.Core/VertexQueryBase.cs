@@ -11,9 +11,23 @@ public abstract class VertexQueryBase<TSelf>(StringBuilder sb) : GraphTraversal<
         return Write($".out('{label}')");
     }
 
+    public VertexQuery Out<TEdge>()
+        where TEdge : Edge
+    {
+        Out(typeof(TEdge).Name);
+        return new VertexQuery(Sb);
+    }
+
     public TSelf In(string label)
     {
         return Write($".in('{label}')");
+    }
+
+    public VertexQuery In<TEdge>()
+        where TEdge : Edge
+    {
+        In(typeof(TEdge).Name);
+        return new VertexQuery(Sb);
     }
 
     public EdgeQuery OutE(string label)
@@ -29,6 +43,7 @@ public abstract class VertexQueryBase<TSelf>(StringBuilder sb) : GraphTraversal<
     }
 
     public TSelf AddV<TLabel>()
+        where TLabel : Vertex
     {
         return Write($".addV('{typeof(TLabel).Name}')");
     }

@@ -3,6 +3,7 @@ using System.Text;
 namespace TypedGremlin.Core;
 
 public class VertexProjection<TVertex, TResult> : VertexProjection<TResult>
+    where TVertex : Vertex
 {
     internal VertexProjection(StringBuilder sb) : base(sb)
     {

@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+
 namespace TypedGremlin.Core.Tests;
 
 public class GTests
@@ -6,8 +8,11 @@ public class GTests
     private static readonly Guid ElementId = Guid.Parse("22222222-2222-2222-2222-222222222222");
     private static readonly FullyQualifiedId FqId = new(TenantId, ElementId);
 
-    private class Person { }
-    private class Knows { }
+    [UsedImplicitly]
+    private class Person : Vertex;
+
+    [UsedImplicitly]
+    private class Knows : Edge;
 
     [Fact]
     public void V_WithTenantId_StartsWithGvAndHasTenantId()

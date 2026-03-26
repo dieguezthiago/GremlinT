@@ -1,12 +1,33 @@
+using JetBrains.Annotations;
+
 namespace TypedGremlin.Core.Tests;
 
 public class VertexQueryTTests
 {
     private static readonly Guid TenantId = Guid.Parse("11111111-1111-1111-1111-111111111111");
 
-    private class Person { public string Name { get; set; } = ""; public int Age { get; set; } }
-    private class Employee { }
-    private class PersonView { public string Name { get; set; } = ""; public int Age { get; set; } }
+    [UsedImplicitly]
+    private class Person : Vertex
+    {
+        public string Name { get; set; } = "";
+        public int Age { get; set; }
+    }
+
+    [UsedImplicitly]
+    private class Employee : Vertex;
+
+    [UsedImplicitly]
+    private class Car : Vertex;
+
+    [UsedImplicitly]
+    private class Owns : Edge;
+
+    [UsedImplicitly]
+    private class PersonView
+    {
+        public string Name { get; set; } = "";
+        public int Age { get; set; }
+    }
 
     [Fact]
     public void Out_WithTargetType_AppendsOutStep()
@@ -88,5 +109,33 @@ public class VertexQueryTTests
     public void Project_WithTypedSelectors_ReturnsTypedVertexProjection()
     {
         G.V<Person>(TenantId).Project<PersonView>(x => x.Name).IsInstanceOf<VertexProjection<Person, PersonView>>();
+    }
+
+    [Fact]
+    public void Out_WithEdgeType_DerivesLabelFromTypeName()
+    {
+        G.V<Person>(TenantId).Out<Owns>()
+            .ToString()
+            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').out('Owns')");
+    }
+
+    [Fact]
+    public void Out_WithEdgeType_ReturnsUntypedVertexQuery()
+    {
+        G.V<Person>(TenantId).Out<Owns>().IsInstanceOf<VertexQuery>();
+    }
+
+    [Fact]
+    public void In_WithEdgeType_DerivesLabelFromTypeName()
+    {
+        G.V<Car>(TenantId).In<Owns>()
+            .ToString()
+            .Is($"g.V().hasLabel('Car').has('tenantId','{TenantId}').in('Owns')");
+    }
+
+    [Fact]
+    public void In_WithEdgeType_ReturnsUntypedVertexQuery()
+    {
+        G.V<Car>(TenantId).In<Owns>().IsInstanceOf<VertexQuery>();
     }
 }
