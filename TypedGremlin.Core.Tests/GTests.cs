@@ -1,0 +1,71 @@
+namespace TypedGremlin.Core.Tests;
+
+public class GTests
+{
+    private static readonly Guid TenantId = Guid.Parse("11111111-1111-1111-1111-111111111111");
+    private static readonly Guid ElementId = Guid.Parse("22222222-2222-2222-2222-222222222222");
+    private static readonly FullyQualifiedId FqId = new(TenantId, ElementId);
+
+    private class Person { }
+    private class Knows { }
+
+    [Fact]
+    public void V_WithTenantId_StartsWithGvAndHasTenantId()
+    {
+        G.V(TenantId).ToString().Is($"g.V().has('tenantId','{TenantId}')");
+    }
+
+    [Fact]
+    public void V_WithGenericType_IncludesHasLabel()
+    {
+        G.V<Person>(TenantId).ToString().Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}')");
+    }
+
+    [Fact]
+    public void V_WithFullyQualifiedId_IncludesElementIdAndTenantId()
+    {
+        G.V(FqId).ToString().Is($"g.V('{ElementId}').has('tenantId','{TenantId}')");
+    }
+
+    [Fact]
+    public void V_WithGenericTypeAndFullyQualifiedId_IncludesBothLabelAndIds()
+    {
+        G.V<Person>(FqId).ToString().Is($"g.V('{ElementId}').hasLabel('Person').has('tenantId','{TenantId}')");
+    }
+
+    [Fact]
+    public void E_WithTenantId_StartsWithGeAndHasTenantId()
+    {
+        G.E(TenantId).ToString().Is($"g.E().has('tenantId','{TenantId}')");
+    }
+
+    [Fact]
+    public void E_WithGenericType_IncludesHasLabel()
+    {
+        G.E<Knows>(TenantId).ToString().Is($"g.E().hasLabel('Knows').has('tenantId','{TenantId}')");
+    }
+
+    [Fact]
+    public void E_WithFullyQualifiedId_IncludesElementIdAndTenantId()
+    {
+        G.E(FqId).ToString().Is($"g.E('{ElementId}').has('tenantId','{TenantId}')");
+    }
+
+    [Fact]
+    public void E_WithGenericTypeAndFullyQualifiedId_IncludesBothLabelAndIds()
+    {
+        G.E<Knows>(FqId).ToString().Is($"g.E('{ElementId}').hasLabel('Knows').has('tenantId','{TenantId}')");
+    }
+
+    [Fact]
+    public void AnonV_StartsWithDoubleUnderscore()
+    {
+        G.AnonV.ToString().Is("__");
+    }
+
+    [Fact]
+    public void AnonE_StartsWithDoubleUnderscore()
+    {
+        G.AnonE.ToString().Is("__");
+    }
+}
