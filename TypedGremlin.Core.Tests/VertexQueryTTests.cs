@@ -11,6 +11,7 @@ public class VertexQueryTTests
     {
         public string Name { get; set; } = "";
         public int Age { get; set; }
+        public bool HasHouse { get; set; }
     }
 
     [UsedImplicitly]
@@ -55,6 +56,22 @@ public class VertexQueryTTests
     public void In_WithTargetType_ReturnsVertexQueryOfTargetType()
     {
         G.V<Person>(TenantId).In<Employee>("works_at").IsInstanceOf<VertexQuery<Employee>>();
+    }
+
+    [Fact]
+    public void Has_OfTypedVertexWithStringValue_UsesPropertyName()
+    {
+        G.V<Person>(TenantId).Has(x => x.Name, "Thiago")
+            .ToString()
+            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').has('Name','Thiago')");
+    }
+
+    [Fact]
+    public void Has_OfTypedVertexWithBooleanValue_UsesPropertyName()
+    {
+        G.V<Person>(TenantId).Has(x => x.HasHouse, true)
+            .ToString()
+            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').has('HasHouse','1')");
     }
 
     [Fact]

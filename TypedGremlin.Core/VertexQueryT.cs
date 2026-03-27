@@ -24,6 +24,34 @@ public class VertexQuery<T> : VertexQueryBase<VertexQuery<T>>
         return new VertexQuery<TTarget>(Sb);
     }
 
+    public VertexQuery<T> Has(Expression<Func<T, object>> keySelector, string value)
+    {
+        var key = ExpressionHelper.MemberName(keySelector);
+        base.Has(key, value);
+        return this;
+    }
+
+    public VertexQuery<T> Has(Expression<Func<T, object>> keySelector, bool value)
+    {
+        var key = ExpressionHelper.MemberName(keySelector);
+        base.Has(key, value);
+        return this;
+    }
+
+    public VertexQuery<T> Has(Expression<Func<T, object>> keySelector, int value)
+    {
+        var key = ExpressionHelper.MemberName(keySelector);
+        base.Has(key, value);
+        return this;
+    }
+
+    public VertexQuery<T> Has(Expression<Func<T, object>> keySelector, long value)
+    {
+        var key = ExpressionHelper.MemberName(keySelector);
+        base.Has(key, value);
+        return this;
+    }
+
     // TODO: identify how to union diff vertex types
     // .Union(b => b.Out<Knows>().V<Person>(), b => b.Out<Has>().V<Car>())
     public VertexQuery<T> Union<TTraversal>(params Func<VertexQuery, TTraversal>[] builders)
