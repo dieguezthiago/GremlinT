@@ -13,10 +13,13 @@ public class AggregationQueryTests
     }
 
     [UsedImplicitly]
+    private class Knows : Edge;
+
+    [UsedImplicitly]
     private class Car : Vertex;
 
     [UsedImplicitly]
-    private class Owns : Edge;
+    private class Has : Edge;
 
     [Fact]
     public void Count_OnTypedVertex_ProducesCountStep()
@@ -84,6 +87,25 @@ public class AggregationQueryTests
     }
 
     [Fact]
+    public void Union_OfTypedVertexOfTwoTraversals_ProducesUnionStep()
+    {
+        G.V<Person>(TenantId)
+            // .Union(
+            //     b => b.Out<Knows>().V<Person>(),
+            //     b => b.Out<Has>().V<Car>()
+            // )
+            .ToString()
+            .Is($"""
+                 g.V().hasLabel('Person')
+                 .has('tenantId','{TenantId}')
+                 .union(
+                 __.out('Knows').hasLabel('Person'),
+                 __.out('Has').hasLabel('Car')
+                 )
+                 """.Replace("\n", ""));
+    }
+
+    [Fact]
     public void Coalesce_OfFilterAndConstant_ProducesCoalesceStep()
     {
         GraphTraversal[] traversals = [G.AnonV.Has("Name", "Alice"), G.AnonV.Constant("unknown")];
@@ -97,9 +119,9 @@ public class AggregationQueryTests
     [Fact]
     public void Count_AfterMultiHopTraversal_CountsResultVertices()
     {
-        G.V<Person>(TenantId).Out<Owns>().V<Car>().Count()
+        G.V<Person>(TenantId).Out<Has>().V<Car>().Count()
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').out('Owns').hasLabel('Car').count()");
+            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').out('Has').hasLabel('Car').count()");
     }
 
     [Fact]

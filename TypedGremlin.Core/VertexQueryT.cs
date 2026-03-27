@@ -24,6 +24,15 @@ public class VertexQuery<T> : VertexQueryBase<VertexQuery<T>>
         return new VertexQuery<TTarget>(Sb);
     }
 
+    // TODO: identify how to union diff vertex types
+    // .Union(b => b.Out<Knows>().V<Person>(), b => b.Out<Has>().V<Car>())
+    public VertexQuery<T> Union<TTraversal>(params Func<VertexQuery, TTraversal>[] builders)
+        where TTraversal : GraphTraversal<TTraversal>
+    {
+        base.Union(builders.Select(b => b(G.AnonV)).ToArray<GraphTraversal>());
+        return this;
+    }
+
     public VertexQuery<T> Properties(params Expression<Func<T, object?>>[] selectors)
     {
         base.Properties(Array.ConvertAll(selectors, ExpressionHelper.MemberName));
