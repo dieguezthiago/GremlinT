@@ -43,7 +43,7 @@ public class AggregationQueryTests
     }
 
     [Fact]
-    public void OrderByAscending_OnTypedVertex_ProducesAscOrder()
+    public void OrderByAscending_OnTypedVertexWithString_ProducesAscOrder()
     {
         G.V<Person>(TenantId).OrderByAscending("Name")
             .ToString()
@@ -51,9 +51,25 @@ public class AggregationQueryTests
     }
 
     [Fact]
-    public void OrderByDescending_OnTypedVertex_ProducesDescOrder()
+    public void OrderByAscending_OnTypedVertexWithExpression_ProducesAscOrder()
+    {
+        G.V<Person>(TenantId).OrderByAscending(p => p.Name)
+            .ToString()
+            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').order().by('Name',asc)");
+    }
+
+    [Fact]
+    public void OrderByDescending_OnTypedVertexWithString_ProducesDescOrder()
     {
         G.V<Person>(TenantId).OrderByDescending("Name")
+            .ToString()
+            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').order().by('Name',desc)");
+    }
+
+    [Fact]
+    public void OrderByDescending_OnTypedVertexWithExpression_ProducesDescOrder()
+    {
+        G.V<Person>(TenantId).OrderByDescending(x => x.Name)
             .ToString()
             .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').order().by('Name',desc)");
     }

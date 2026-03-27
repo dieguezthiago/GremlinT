@@ -54,4 +54,18 @@ public class VertexQuery<T> : VertexQueryBase<VertexQuery<T>>
         Sb.Append($".project({string.Join(",", Array.ConvertAll(keys, k => $"'{k}'"))})");
         return new VertexProjection<T, TResult>(Sb);
     }
+
+    public VertexQuery<T> OrderByAscending(Expression<Func<T, object>> expression)
+    {
+        var key = ExpressionHelper.MemberName(expression);
+        OrderByAscending(key);
+        return this;
+    }
+
+    public VertexQuery<T> OrderByDescending(Expression<Func<T, object>> expression)
+    {
+        var key = ExpressionHelper.MemberName(expression);
+        OrderByDescending(key);
+        return this;
+    }
 }
