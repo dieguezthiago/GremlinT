@@ -63,7 +63,7 @@ public static class G
     public static VertexQuery AddV(Guid tenantId, string label)
     {
         return new VertexQuery(new StringBuilder(
-            $"g.addV('{label})"
+            $"g.addV('{label}')"
         )).WithTenantId(tenantId);
     }
 

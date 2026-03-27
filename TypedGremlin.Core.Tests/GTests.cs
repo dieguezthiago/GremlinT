@@ -73,4 +73,10 @@ public class GTests
     {
         G.AnonE.ToString().Is("__");
     }
+
+    [Fact]
+    public void AddV_SetsTenantId()
+    {
+        G.AddV(TenantId, "Person").ToString().Is($"g.addV('Person').property('tenantId','{TenantId}')");
+    }
 }
