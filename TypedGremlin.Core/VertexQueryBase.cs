@@ -3,37 +3,30 @@ using System.Text;
 
 namespace TypedGremlin.Core;
 
-public abstract class VertexQueryBase<TSelf>(StringBuilder sb) : GraphTraversal<TSelf>(sb)
-    where TSelf : VertexQueryBase<TSelf>
+public abstract class VertexQueryBase<TSelf>(
+    StringBuilder sb
+) : GraphTraversal<TSelf>(sb) where TSelf : VertexQueryBase<TSelf>
 {
-    public TSelf Out(string label)
-    {
-        return Write($".out('{label}')");
-    }
-
-    public VertexQuery Out<TEdge>()
-        where TEdge : Edge
-    {
-        Out(typeof(TEdge).Name);
-        return new VertexQuery(Sb);
-    }
-
     public TSelf In(string label)
     {
         return Write($".in('{label}')");
     }
 
-    public VertexQuery In<TEdge>()
-        where TEdge : Edge
+    public VertexQuery In<TEdge>() where TEdge : Edge
     {
         In(typeof(TEdge).Name);
         return new VertexQuery(Sb);
     }
 
-    public EdgeQuery OutE(string label)
+    public TSelf Out(string label)
     {
-        Write($".outE('{label}')");
-        return new EdgeQuery(Sb);
+        return Write($".out('{label}')");
+    }
+
+    public VertexQuery Out<TEdge>() where TEdge : Edge
+    {
+        Out(typeof(TEdge).Name);
+        return new VertexQuery(Sb);
     }
 
     public EdgeQuery InE(string label)
@@ -42,16 +35,41 @@ public abstract class VertexQueryBase<TSelf>(StringBuilder sb) : GraphTraversal<
         return new EdgeQuery(Sb);
     }
 
-    public TSelf AddV<TLabel>()
-        where TLabel : Vertex
+    public EdgeQuery InE<TEdge>() where TEdge : Edge
     {
-        return Write($".addV('{typeof(TLabel).Name}')");
+        return InE(typeof(TEdge).Name);
+    }
+
+    public EdgeQuery OutE(string label)
+    {
+        Write($".outE('{label}')");
+        return new EdgeQuery(Sb);
+    }
+
+    public EdgeQuery OutE<TEdge>() where TEdge : Edge
+    {
+        return OutE(typeof(TEdge).Name);
+    }
+
+    public TSelf AddV(string label)
+    {
+        return Write($".addV('{label}')");
+    }
+
+    public TSelf AddV<TVertex>() where TVertex : Vertex
+    {
+        return AddV(typeof(TVertex).Name);
     }
 
     public EdgeQuery AddE(string label)
     {
         Write($".addE('{label}')");
         return new EdgeQuery(Sb);
+    }
+
+    public EdgeQuery AddE<TEdge>()
+    {
+        return AddE(typeof(TEdge).Name);
     }
 
     public TSelf Properties(params string[] keys)

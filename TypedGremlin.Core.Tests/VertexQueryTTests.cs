@@ -33,29 +33,29 @@ public class VertexQueryTTests
     [Fact]
     public void Out_WithTargetType_AppendsOutStep()
     {
-        G.V<Person>(TenantId).Out<Employee>("works_at")
+        G.V<Person>(TenantId).Out<Owns>()
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').out('works_at')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').out('Owns')");
     }
 
     [Fact]
     public void Out_WithTargetType_ReturnsVertexQueryOfTargetType()
     {
-        G.V<Person>(TenantId).Out<Employee>("works_at").IsInstanceOf<VertexQuery<Employee>>();
+        G.V<Person>(TenantId).Out<Owns>().IsInstanceOf<VertexQuery>();
     }
 
     [Fact]
     public void In_WithTargetType_AppendsInStep()
     {
-        G.V<Person>(TenantId).In<Employee>("works_at")
+        G.V<Person>(TenantId).In<Owns>()
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').in('works_at')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').in('Owns')");
     }
 
     [Fact]
     public void In_WithTargetType_ReturnsVertexQueryOfTargetType()
     {
-        G.V<Person>(TenantId).In<Employee>("works_at").IsInstanceOf<VertexQuery<Employee>>();
+        G.V<Person>(TenantId).In<Owns>().IsInstanceOf<VertexQuery>();
     }
 
     [Fact]
@@ -63,7 +63,7 @@ public class VertexQueryTTests
     {
         G.V<Person>(TenantId).Has(x => x.Name, "Thiago")
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').has('Name','Thiago')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').has('Name','Thiago')");
     }
 
     [Fact]
@@ -71,7 +71,7 @@ public class VertexQueryTTests
     {
         G.V<Person>(TenantId).Has(x => x.HasHouse, true)
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').has('HasHouse','1')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').has('HasHouse','1')");
     }
 
     [Fact]
@@ -79,7 +79,7 @@ public class VertexQueryTTests
     {
         G.V<Person>(TenantId).Properties(x => x.Name)
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').properties('Name')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').properties('Name')");
     }
 
     [Fact]
@@ -87,7 +87,7 @@ public class VertexQueryTTests
     {
         G.V<Person>(TenantId).Properties(x => x.Name, x => x.Age)
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').properties('Name','Age')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').properties('Name','Age')");
     }
 
     [Fact]
@@ -95,7 +95,7 @@ public class VertexQueryTTests
     {
         G.V<Person>(TenantId).ValueMap(x => x.Name, x => x.Age)
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').valueMap('Name','Age')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').valueMap('Name','Age')");
     }
 
     [Fact]
@@ -103,7 +103,7 @@ public class VertexQueryTTests
     {
         G.V<Person>(TenantId).ValueMap(true, x => x.Name)
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').valueMap(true,'Name')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').valueMap(true,'Name')");
     }
 
     [Fact]
@@ -111,7 +111,7 @@ public class VertexQueryTTests
     {
         G.V<Person>(TenantId).Where(q => q.Has("name", "Alice"))
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').where(__.has('name','Alice'))");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').where(__.has('name','Alice'))");
     }
 
     [Fact]
@@ -119,7 +119,7 @@ public class VertexQueryTTests
     {
         G.V<Person>(TenantId).Project<PersonView>(x => x.Name, x => x.Age)
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').project('Name','Age')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').project('Name','Age')");
     }
 
     [Fact]
@@ -133,7 +133,7 @@ public class VertexQueryTTests
     {
         G.V<Person>(TenantId).Out<Owns>()
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').out('Owns')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').out('Owns')");
     }
 
     [Fact]
@@ -147,7 +147,7 @@ public class VertexQueryTTests
     {
         G.V<Car>(TenantId).In<Owns>()
             .ToString()
-            .Is($"g.V().hasLabel('Car').has('tenantId','{TenantId}').in('Owns')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Car').in('Owns')");
     }
 
     [Fact]

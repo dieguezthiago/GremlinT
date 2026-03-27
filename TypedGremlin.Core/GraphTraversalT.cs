@@ -6,6 +6,8 @@ public abstract class GraphTraversal<TSelf>(
     StringBuilder sb
 ) : GraphTraversal(sb) where TSelf : GraphTraversal<TSelf>
 {
+    public const string TenantIdKey = "tenantId";
+
     protected TSelf Write(string step)
     {
         Sb.Append(step);
@@ -27,6 +29,12 @@ public abstract class GraphTraversal<TSelf>(
         return Write($".has('{key}','{value}')");
     }
 
+    public TSelf Has(string key, Guid value)
+    {
+        return Has(key, value.ToString());
+    }
+
+
     public TSelf Has(string key, bool value)
     {
         return Has(key, value ? 1 : 0);
@@ -45,6 +53,11 @@ public abstract class GraphTraversal<TSelf>(
     public TSelf Has<TEnum>(string key, TEnum value) where TEnum : Enum
     {
         return Has(key, value.ToString());
+    }
+
+    public TSelf HasTenantId(Guid tenantId)
+    {
+        return Has(TenantIdKey, tenantId);
     }
 
     public TSelf HasLabel(params string[] labels)
@@ -125,5 +138,15 @@ public abstract class GraphTraversal<TSelf>(
     public TSelf OrderByDescending(string key)
     {
         return Write($".order().by('{key}',desc)");
+    }
+
+    public TSelf Property(string key, string value)
+    {
+        return Write($".property('{key}','{value}')");
+    }
+
+    public TSelf WithTenantId(Guid value)
+    {
+        return Property(TenantIdKey, value.ToString());
     }
 }

@@ -10,20 +10,6 @@ public class VertexQuery<T> : VertexQueryBase<VertexQuery<T>>
     {
     }
 
-    public VertexQuery<TTarget> In<TTarget>(string label)
-        where TTarget : Vertex
-    {
-        Sb.Append($".in('{label}')");
-        return new VertexQuery<TTarget>(Sb);
-    }
-
-    public VertexQuery<TTarget> Out<TTarget>(string label)
-        where TTarget : Vertex
-    {
-        Sb.Append($".out('{label}')");
-        return new VertexQuery<TTarget>(Sb);
-    }
-
     public VertexQuery<T> Has(Expression<Func<T, object>> keySelector, string value)
     {
         var key = ExpressionHelper.MemberName(keySelector);

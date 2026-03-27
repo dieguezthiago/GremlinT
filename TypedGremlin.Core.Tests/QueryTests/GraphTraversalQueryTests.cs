@@ -7,16 +7,10 @@ public class GraphTraversalQueryTests
     private static readonly Guid TenantId = Guid.Parse("11111111-1111-1111-1111-111111111111");
 
     [UsedImplicitly]
-    private class Person : Vertex
-    {
-        public string Name { get; set; } = "";
-    }
+    private class Person : Vertex;
 
     [UsedImplicitly]
-    private class Car : Vertex
-    {
-        public string Make { get; set; } = "";
-    }
+    private class Car : Vertex;
 
     [UsedImplicitly]
     private class Company : Vertex;
@@ -32,15 +26,15 @@ public class GraphTraversalQueryTests
     {
         G.V<Person>(TenantId).Out<Owns>().V<Car>()
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').out('Owns').hasLabel('Car')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').out('Owns').hasLabel('Car')");
     }
 
     [Fact]
     public void Out_WithLabelAndTargetType_ProducesTypedTraversal()
     {
-        G.V<Person>(TenantId).Out<Company>("worksAt")
+        G.V<Person>(TenantId).Out<Knows>()
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').out('worksAt')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').out('Knows')");
     }
 
     [Fact]
@@ -48,7 +42,7 @@ public class GraphTraversalQueryTests
     {
         G.V<Car>(TenantId).In<Owns>()
             .ToString()
-            .Is($"g.V().hasLabel('Car').has('tenantId','{TenantId}').in('Owns')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Car').in('Owns')");
     }
 
     [Fact]
@@ -57,7 +51,7 @@ public class GraphTraversalQueryTests
         G.V<Person>(TenantId).Out<Owns>().V<Car>().In<Owns>().V<Person>()
             .ToString()
             .Is(
-                $"g.V().hasLabel('Person').has('tenantId','{TenantId}').out('Owns').hasLabel('Car').in('Owns').hasLabel('Person')");
+                $"g.V().has('tenantId','{TenantId}').hasLabel('Person').out('Owns').hasLabel('Car').in('Owns').hasLabel('Person')");
     }
 
     [Fact]
@@ -65,7 +59,7 @@ public class GraphTraversalQueryTests
     {
         G.V<Person>(TenantId).OutE("knows").InV().HasLabel<Person>()
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').outE('knows').inV().hasLabel('Person')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').outE('knows').inV().hasLabel('Person')");
     }
 
     [Fact]
@@ -73,7 +67,7 @@ public class GraphTraversalQueryTests
     {
         G.V<Car>(TenantId).InE("Owns").OutV().HasLabel<Person>()
             .ToString()
-            .Is($"g.V().hasLabel('Car').has('tenantId','{TenantId}').inE('Owns').outV().hasLabel('Person')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Car').inE('Owns').outV().hasLabel('Person')");
     }
 
     [Fact]
@@ -81,7 +75,7 @@ public class GraphTraversalQueryTests
     {
         G.V<Person>(TenantId).OutE("knows").OtherV()
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').outE('knows').otherV()");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').outE('knows').otherV()");
     }
 
     [Fact]
@@ -94,6 +88,6 @@ public class GraphTraversalQueryTests
             .Out<Owns>().V<Car>()
             .ToString()
             .Is(
-                $"g.V().hasLabel('Person').has('tenantId','{TenantId}').has('Name','Alice').out('Knows').hasLabel('Person').has('Name','Bob').out('Owns').hasLabel('Car')");
+                $"g.V().has('tenantId','{TenantId}').hasLabel('Person').has('Name','Alice').out('Knows').hasLabel('Person').has('Name','Bob').out('Owns').hasLabel('Car')");
     }
 }

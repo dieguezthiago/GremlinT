@@ -23,7 +23,7 @@ public class GTests
     [Fact]
     public void V_WithGenericType_IncludesHasLabel()
     {
-        G.V<Person>(TenantId).ToString().Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}')");
+        G.V<Person>(TenantId).ToString().Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person')");
     }
 
     [Fact]
@@ -35,7 +35,7 @@ public class GTests
     [Fact]
     public void V_WithGenericTypeAndFullyQualifiedId_IncludesBothLabelAndIds()
     {
-        G.V<Person>(FqId).ToString().Is($"g.V('{ElementId}').hasLabel('Person').has('tenantId','{TenantId}')");
+        G.V<Person>(FqId).ToString().Is($"g.V('{ElementId}').has('tenantId','{TenantId}').hasLabel('Person')");
     }
 
     [Fact]
@@ -47,7 +47,7 @@ public class GTests
     [Fact]
     public void E_WithGenericType_IncludesHasLabel()
     {
-        G.E<Knows>(TenantId).ToString().Is($"g.E().hasLabel('Knows').has('tenantId','{TenantId}')");
+        G.E<Knows>(TenantId).ToString().Is($"g.E().has('tenantId','{TenantId}').hasLabel('Knows')");
     }
 
     [Fact]
@@ -59,7 +59,7 @@ public class GTests
     [Fact]
     public void E_WithGenericTypeAndFullyQualifiedId_IncludesBothLabelAndIds()
     {
-        G.E<Knows>(FqId).ToString().Is($"g.E('{ElementId}').hasLabel('Knows').has('tenantId','{TenantId}')");
+        G.E<Knows>(FqId).ToString().Is($"g.E('{ElementId}').has('tenantId','{TenantId}').hasLabel('Knows')");
     }
 
     [Fact]

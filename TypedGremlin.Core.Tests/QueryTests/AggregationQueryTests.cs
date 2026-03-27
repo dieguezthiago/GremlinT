@@ -26,7 +26,7 @@ public class AggregationQueryTests
     {
         G.V<Person>(TenantId).Count()
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').count()");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').count()");
     }
 
     [Fact]
@@ -34,7 +34,7 @@ public class AggregationQueryTests
     {
         G.V<Person>(TenantId).Fold()
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').fold()");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').fold()");
     }
 
     [Fact]
@@ -42,7 +42,7 @@ public class AggregationQueryTests
     {
         G.V<Person>(TenantId).Limit(10)
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').limit(10)");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').limit(10)");
     }
 
     [Fact]
@@ -50,7 +50,7 @@ public class AggregationQueryTests
     {
         G.V<Person>(TenantId).OrderByAscending("Name")
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').order().by('Name',asc)");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').order().by('Name',asc)");
     }
 
     [Fact]
@@ -58,7 +58,7 @@ public class AggregationQueryTests
     {
         G.V<Person>(TenantId).OrderByAscending(p => p.Name)
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').order().by('Name',asc)");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').order().by('Name',asc)");
     }
 
     [Fact]
@@ -66,7 +66,7 @@ public class AggregationQueryTests
     {
         G.V<Person>(TenantId).OrderByDescending("Name")
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').order().by('Name',desc)");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').order().by('Name',desc)");
     }
 
     [Fact]
@@ -74,7 +74,7 @@ public class AggregationQueryTests
     {
         G.V<Person>(TenantId).OrderByDescending(x => x.Name)
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').order().by('Name',desc)");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').order().by('Name',desc)");
     }
 
     [Fact]
@@ -113,7 +113,8 @@ public class AggregationQueryTests
             .Coalesce(traversals)
             .ToString()
             .Is(
-                $"g.V().hasLabel('Person').has('tenantId','{TenantId}').coalesce(__.has('Name','Alice'),__.constant('unknown'))");
+                $"g.V().has('tenantId','{TenantId}').hasLabel('Person').coalesce(__.has('Name','Alice'),__.constant('unknown'))"
+            );
     }
 
     [Fact]
@@ -121,7 +122,7 @@ public class AggregationQueryTests
     {
         G.V<Person>(TenantId).Out<Has>().V<Car>().Count()
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').out('Has').hasLabel('Car').count()");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').out('Has').hasLabel('Car').count()");
     }
 
     [Fact]
@@ -129,6 +130,6 @@ public class AggregationQueryTests
     {
         G.V<Person>(TenantId).Count().IsNotEqual(0)
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').count().is(neq(0))");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').count().is(neq(0))");
     }
 }

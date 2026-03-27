@@ -52,7 +52,7 @@ public class MutationQueryTests
     {
         G.E<Knows>(TenantId).Property("weight", "1.0")
             .ToString()
-            .Is($"g.E().hasLabel('Knows').has('tenantId','{TenantId}').property('weight','1.0')");
+            .Is($"g.E().has('tenantId','{TenantId}').hasLabel('Knows').property('weight','1.0')");
     }
 
     [Fact]

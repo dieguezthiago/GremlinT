@@ -33,7 +33,8 @@ public class MultiTenancyQueryTests
         G.V<Person>(TenantId).Out<Owns>().V<Car>().Has("Make", "Toyota")
             .ToString()
             .Is(
-                $"g.V().hasLabel('Person').has('tenantId','{TenantId}').out('Owns').hasLabel('Car').has('Make','Toyota')");
+                $"g.V().has('tenantId','{TenantId}').hasLabel('Person').out('Owns').hasLabel('Car').has('Make','Toyota')"
+            );
     }
 
     [Fact]
@@ -41,7 +42,7 @@ public class MultiTenancyQueryTests
     {
         G.V<Person>(FqId).Out<Owns>().V<Car>()
             .ToString()
-            .Is($"g.V('{ElementId}').hasLabel('Person').has('tenantId','{TenantId}').out('Owns').hasLabel('Car')");
+            .Is($"g.V('{ElementId}').has('tenantId','{TenantId}').hasLabel('Person').out('Owns').hasLabel('Car')");
     }
 
     [Fact]
@@ -49,7 +50,7 @@ public class MultiTenancyQueryTests
     {
         G.E<Knows>(FqId).Property("weight", "1.0")
             .ToString()
-            .Is($"g.E('{ElementId}').hasLabel('Knows').has('tenantId','{TenantId}').property('weight','1.0')");
+            .Is($"g.E('{ElementId}').has('tenantId','{TenantId}').hasLabel('Knows').property('weight','1.0')");
     }
 
     [Fact]
@@ -67,7 +68,7 @@ public class MultiTenancyQueryTests
             .Has("Name", "Alice")
             .ValueMap(x => x.Name)
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').has('Name','Alice').valueMap('Name')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').has('Name','Alice').valueMap('Name')");
     }
 
     [Fact]
@@ -78,6 +79,7 @@ public class MultiTenancyQueryTests
             .Has("Name", "Bob")
             .ToString()
             .Is(
-                $"g.V('{ElementId}').hasLabel('Person').has('tenantId','{TenantId}').out('Knows').hasLabel('Person').has('Name','Bob')");
+                $"g.V('{ElementId}').has('tenantId','{TenantId}').hasLabel('Person').out('Knows').hasLabel('Person').has('Name','Bob')"
+            );
     }
 }

@@ -26,7 +26,7 @@ public class ProjectionQueryTests
             .Project<PersonView>(x => x.Name)
             .By(G.AnonV.Values("Name"))
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').project('Name').by(__.values('Name'))");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').project('Name').by(__.values('Name'))");
     }
 
     [Fact]
@@ -38,7 +38,7 @@ public class ProjectionQueryTests
             .By(G.AnonV.Values("Age"))
             .ToString()
             .Is(
-                $"g.V().hasLabel('Person').has('tenantId','{TenantId}').project('Name','Age').by(__.values('Name')).by(__.values('Age'))");
+                $"g.V().has('tenantId','{TenantId}').hasLabel('Person').project('Name','Age').by(__.values('Name')).by(__.values('Age'))");
     }
 
     [Fact]
@@ -48,7 +48,7 @@ public class ProjectionQueryTests
             .Project<PersonView>(x => x.Name)
             .By(q => q.Values("Name"))
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').project('Name').by(__.values('Name'))");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').project('Name').by(__.values('Name'))");
     }
 
     [Fact]
@@ -59,7 +59,7 @@ public class ProjectionQueryTests
             .By(q => q.Has("Name", "Alice").Values("Age"))
             .ToString()
             .Is(
-                $"g.V().hasLabel('Person').has('tenantId','{TenantId}').project('Age').by(__.has('Name','Alice').values('Age'))");
+                $"g.V().has('tenantId','{TenantId}').hasLabel('Person').project('Age').by(__.has('Name','Alice').values('Age'))");
     }
 
     [Fact]
@@ -67,7 +67,7 @@ public class ProjectionQueryTests
     {
         G.V<Person>(TenantId).ValueMap(x => x.Name, x => x.Age)
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').valueMap('Name','Age')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').valueMap('Name','Age')");
     }
 
     [Fact]
@@ -75,7 +75,7 @@ public class ProjectionQueryTests
     {
         G.V<Person>(TenantId).ValueMap(true, x => x.Name)
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').valueMap(true,'Name')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').valueMap(true,'Name')");
     }
 
     [Fact]
@@ -83,7 +83,7 @@ public class ProjectionQueryTests
     {
         G.V<Person>(TenantId).Has("Name", "Alice").Values("Name")
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').has('Name','Alice').values('Name')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').has('Name','Alice').values('Name')");
     }
 
     [Fact]

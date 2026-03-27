@@ -27,7 +27,7 @@ public class VertexFilteringQueryTests
     {
         G.V<Person>(TenantId).Has("Name", "Alice")
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').has('Name','Alice')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').has('Name','Alice')");
     }
 
     [Fact]
@@ -35,7 +35,7 @@ public class VertexFilteringQueryTests
     {
         G.V<Person>(TenantId).Has("Name", "Alice").Has("Age", 30)
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').has('Name','Alice').has('Age','30')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').has('Name','Alice').has('Age','30')");
     }
 
     [Fact]
@@ -44,7 +44,7 @@ public class VertexFilteringQueryTests
         var id = Guid.Parse("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
         G.V<Person>(TenantId).HasId(id)
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').hasId('{id}')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').hasId('{id}')");
     }
 
     [Fact]
@@ -60,7 +60,7 @@ public class VertexFilteringQueryTests
     {
         G.V<Person>(TenantId).Where(q => q.Has("Name", "Alice"))
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').where(__.has('Name','Alice'))");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').where(__.has('Name','Alice'))");
     }
 
     [Fact]
@@ -70,7 +70,7 @@ public class VertexFilteringQueryTests
             .Has("Name", "Alice")
             .Where(q => q.Has("Age", 30))
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').has('Name','Alice').where(__.has('Age','30'))");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').has('Name','Alice').where(__.has('Age','30'))");
     }
 
     [Fact]
@@ -78,7 +78,7 @@ public class VertexFilteringQueryTests
     {
         G.V<Person>(TenantId).Has("IsActive", true)
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').has('IsActive','1')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').has('IsActive','1')");
     }
 
     [Fact]
@@ -86,6 +86,6 @@ public class VertexFilteringQueryTests
     {
         G.V<Car>(TenantId).Has("Status", CarStatus.Available)
             .ToString()
-            .Is($"g.V().hasLabel('Car').has('tenantId','{TenantId}').has('Status','Available')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Car').has('Status','Available')");
     }
 }

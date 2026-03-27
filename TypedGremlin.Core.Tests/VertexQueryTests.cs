@@ -157,7 +157,7 @@ public class VertexQueryTests
     {
         G.V<Person>(TenantId).Out<Owns>().V<Car>()
             .ToString()
-            .Is($"g.V().hasLabel('Person').has('tenantId','{TenantId}').out('Owns').hasLabel('Car')");
+            .Is($"g.V().has('tenantId','{TenantId}').hasLabel('Person').out('Owns').hasLabel('Car')");
     }
 
     [Fact]
