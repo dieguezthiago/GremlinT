@@ -1,0 +1,7 @@
+<Project>
+
+    <PropertyGroup Condition="'$(CI)' != 'true'">
+        <MinVerSkip>true</MinVerSkip>
+    </PropertyGroup>
+
+</Project>
