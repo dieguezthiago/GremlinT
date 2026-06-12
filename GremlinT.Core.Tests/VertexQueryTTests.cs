@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using GremlinT.Core.Abstractions;
+using JetBrains.Annotations;
 
 namespace GremlinT.Core.Tests;
 

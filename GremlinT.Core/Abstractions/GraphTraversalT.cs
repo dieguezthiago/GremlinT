@@ -1,12 +1,12 @@
 ﻿using System.Text;
 
-namespace GremlinT.Core;
+namespace GremlinT.Core.Abstractions;
 
 public abstract class GraphTraversal<TSelf>(
     StringBuilder sb
 ) : GraphTraversal(sb) where TSelf : GraphTraversal<TSelf>
 {
-    public const string TenantIdKey = "tenantId";
+    private const string TenantIdKey = "tenantId";
 
     protected TSelf Write(string step)
     {
