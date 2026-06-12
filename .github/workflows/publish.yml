@@ -24,16 +24,19 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Build
-        run: dotnet build --configuration Release
+      - name: Restore
+        run: dotnet restore
 
-      - name: Run tests
-        run: dotnet test --configuration Release --no-build --verbosity normal
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run Tests
+        run: dotnet test --configuration Release --no-build
 
       - name: Pack
         run: dotnet pack GremlinT.Core/GremlinT.Core.csproj --configuration Release --no-build --output ./nupkg
 
-      - name: NuGet login
+      - name: NuGet Login
         uses: NuGet/login@v1
         id: nuget-login
         with:
