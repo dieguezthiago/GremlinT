@@ -1,6 +1,6 @@
-using System.Text;
+﻿using System.Text;
 
-namespace TypedGremlin.Core;
+namespace GremlinT.Core;
 
 public class VertexQuery : VertexQueryBase<VertexQuery>
 {
@@ -15,3 +15,4 @@ public class VertexQuery : VertexQueryBase<VertexQuery>
 		return new VertexQuery<TVertex>(Sb);
 	}
 }
+

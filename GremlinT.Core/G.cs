@@ -1,6 +1,6 @@
-using System.Text;
+﻿using System.Text;
 
-namespace TypedGremlin.Core;
+namespace GremlinT.Core;
 
 public static class G
 {
@@ -67,9 +67,11 @@ public static class G
         )).WithTenantId(tenantId);
     }
 
-    public static VertexQuery AddV<T>(Guid tenantId)
+    public static VertexQuery<T> AddV<T>(Guid tenantId) where T : Vertex
     {
-        return AddV(tenantId, typeof(T).Name);
+        return new VertexQuery<T>(new StringBuilder(
+            $"g.addV('{typeof(T).Name}')"
+        )).WithTenantId(tenantId);
     }
 
     public static VertexQuery AddV(FullyQualifiedId fullyQualifiedId, string label)

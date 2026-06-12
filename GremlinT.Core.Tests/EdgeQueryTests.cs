@@ -1,4 +1,4 @@
-namespace TypedGremlin.Core.Tests;
+﻿namespace GremlinT.Core.Tests;
 
 public class EdgeQueryTests
 {
@@ -70,3 +70,4 @@ public class EdgeQueryTests
             .Is($"g.E().has('tenantId','{TenantId}').from('a').to('b').property('weight','high').inV().hasLabel('Person')");
     }
 }
+

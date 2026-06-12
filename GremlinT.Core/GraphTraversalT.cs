@@ -1,6 +1,6 @@
-using System.Text;
+﻿using System.Text;
 
-namespace TypedGremlin.Core;
+namespace GremlinT.Core;
 
 public abstract class GraphTraversal<TSelf>(
     StringBuilder sb

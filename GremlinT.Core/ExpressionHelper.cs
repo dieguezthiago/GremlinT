@@ -1,6 +1,6 @@
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
-namespace TypedGremlin.Core;
+namespace GremlinT.Core;
 
 internal static class ExpressionHelper
 {

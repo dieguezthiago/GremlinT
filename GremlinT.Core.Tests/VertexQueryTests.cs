@@ -1,13 +1,17 @@
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
-namespace TypedGremlin.Core.Tests;
+namespace GremlinT.Core.Tests;
 
 public class VertexQueryTests
 {
     private static readonly Guid TenantId = Guid.Parse("11111111-1111-1111-1111-111111111111");
 
     [UsedImplicitly]
-    private class Person : Vertex;
+    private class Person : Vertex
+    {
+        public string Name { get; set; } = "";
+        public string Surname { get; set; } = "";
+    }
 
     [UsedImplicitly]
     private class Car : Vertex;
@@ -164,5 +168,17 @@ public class VertexQueryTests
     public void V_WithVertexType_ReturnsTypedVertexQuery()
     {
         G.V<Person>(TenantId).Out<Owns>().V<Car>().IsInstanceOf<VertexQuery<Car>>();
+    }
+
+    [Fact]
+    public void Property_()
+    {
+        G.AddV<Person>(TenantId)
+            .Property(x => x.Name, "Thiago")
+            .Property(x => x.Surname, "Dieguez")
+            .ToString()
+            .Is(
+                $"g.addV('Person').property('tenantId','{TenantId}').property('Name','Thiago').property('Surname','Dieguez')"
+            );
     }
 }

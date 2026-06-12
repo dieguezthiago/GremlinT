@@ -1,8 +1,8 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypedGremlin.Core", "TypedGremlin.Core\TypedGremlin.Core.csproj", "{AD3030CC-FE3C-4658-85FC-263BA81F6CE2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GremlinT.Core", "GremlinT.Core\GremlinT.Core.csproj", "{AD3030CC-FE3C-4658-85FC-263BA81F6CE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypedGremlin.Core.Tests", "TypedGremlin.Core.Tests\TypedGremlin.Core.Tests.csproj", "{4EA15D67-8625-4E60-9D67-186CD14622F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GremlinT.Core.Tests", "GremlinT.Core.Tests\GremlinT.Core.Tests.csproj", "{4EA15D67-8625-4E60-9D67-186CD14622F9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{29DB588A-FC8B-4203-8B63-36C7A1DA1C10}"
 EndProject

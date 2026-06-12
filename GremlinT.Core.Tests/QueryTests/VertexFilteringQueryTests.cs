@@ -1,6 +1,6 @@
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
-namespace TypedGremlin.Core.Tests.QueryTests;
+namespace GremlinT.Core.Tests.QueryTests;
 
 public class VertexFilteringQueryTests
 {

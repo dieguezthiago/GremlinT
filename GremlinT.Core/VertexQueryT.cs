@@ -1,7 +1,7 @@
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using System.Text;
 
-namespace TypedGremlin.Core;
+namespace GremlinT.Core;
 
 public class VertexQuery<T> : VertexQueryBase<VertexQuery<T>>
     where T : Vertex
@@ -89,6 +89,13 @@ public class VertexQuery<T> : VertexQueryBase<VertexQuery<T>>
     {
         var key = ExpressionHelper.MemberName(expression);
         OrderByDescending(key);
+        return this;
+    }
+
+    public VertexQuery<T> Property(Expression<Func<T, object>> selector, string value)
+    {
+        var key = ExpressionHelper.MemberName(selector);
+        Property(key, value);
         return this;
     }
 }

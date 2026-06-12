@@ -1,6 +1,6 @@
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
-namespace TypedGremlin.Core.Tests;
+namespace GremlinT.Core.Tests;
 
 public class GTests
 {

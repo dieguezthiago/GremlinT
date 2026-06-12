@@ -1,7 +1,7 @@
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using System.Text;
 
-namespace TypedGremlin.Core;
+namespace GremlinT.Core;
 
 public abstract class VertexQueryBase<TSelf>(
     StringBuilder sb

@@ -1,4 +1,4 @@
-# TypedGremlin
+# GremlinT
 
 A .NET library that provides a strongly-typed, fluent API for building [Gremlin](https://tinkerpop.apache.org/gremlin.html) graph traversal queries. Instead of writing raw Gremlin strings by hand, you compose queries through C# methods that enforce correct structure and leverage the compiler for type safety.
 
@@ -6,14 +6,14 @@ A .NET library that provides a strongly-typed, fluent API for building [Gremlin]
 
 ## What does it do?
 
-TypedGremlin lets you build Gremlin traversal query strings using a fluent C# API. The final output is a valid Gremlin query string that can be sent to any Gremlin-compatible graph database (e.g. Azure Cosmos DB for Gremlin, Amazon Neptune, JanusGraph).
+GremlinT lets you build Gremlin traversal query strings using a fluent C# API. The final output is a valid Gremlin query string that can be sent to any Gremlin-compatible graph database (e.g. Azure Cosmos DB for Gremlin, Amazon Neptune, JanusGraph).
 
-**Without TypedGremlin:**
+**Without GremlinT:**
 ```
 g.V().hasLabel('Person').has('age','30').order().by('name',asc).limit(10)
 ```
 
-**With TypedGremlin:**
+**With GremlinT:**
 ```csharp
 new PersonTraversal()
     .HasLabel<Person>()
@@ -37,7 +37,7 @@ Query building is done by appending Gremlin step strings to an internal `StringB
 
 ### `GraphTraversal` (base class)
 
-`TypedGremlin.Core/GraphTraversal.cs`
+`GremlinT.Core/GraphTraversal.cs`
 
 The root abstract class. Holds the internal `StringBuilder` that accumulates the Gremlin steps. Provides:
 
@@ -46,7 +46,7 @@ The root abstract class. Holds the internal `StringBuilder` that accumulates the
 
 ### `GraphTraversal<TSelf>` (generic base class)
 
-`TypedGremlin.Core/GraphTraversalT.cs`
+`GremlinT.Core/GraphTraversalT.cs`
 
 The core fluent API layer. Inherits from `GraphTraversal` and is parameterized by `TSelf`, which must itself be a `GraphTraversal<TSelf>`. Every method appends a Gremlin step to the `StringBuilder` and returns `(TSelf)this`, enabling unbroken method chaining on the concrete type.
 
@@ -75,13 +75,13 @@ The core fluent API layer. Inherits from `GraphTraversal` and is parameterized b
 
 ### `Vertex`
 
-`TypedGremlin.Core/Vertex.cs`
+`GremlinT.Core/Vertex.cs`
 
 Abstract base class for graph vertex models. Provides a `Guid Id` property. Domain vertex types inherit from this to represent graph nodes (e.g. `Person`, `Product`).
 
 ### `Edge`
 
-`TypedGremlin.Core/Edge.cs`
+`GremlinT.Core/Edge.cs`
 
 Abstract base class for graph edge models. Provides a `Guid Id` property. Domain edge types inherit from this to represent relationships between vertices (e.g. `Knows`, `Purchased`).
 

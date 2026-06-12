@@ -18,11 +18,11 @@
 
     <ItemGroup>
         <Using Include="Xunit" />
-        <Using Include="TypedGremlin.Core" />
+        <Using Include="GremlinT.Core" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\TypedGremlin.Core\TypedGremlin.Core.csproj" />
+        <ProjectReference Include="..\GremlinT.Core\GremlinT.Core.csproj" />
     </ItemGroup>
 
 </Project>

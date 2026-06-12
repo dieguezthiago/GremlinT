@@ -1,10 +1,19 @@
-namespace TypedGremlin.Core.Tests;
+﻿using JetBrains.Annotations;
+
+namespace GremlinT.Core.Tests;
 
 public class GraphTraversalTests
 {
-    private class Person { }
+    private readonly Guid _tenantId = Guid.Parse("11111111-1111-1111-1111-111111111111");
 
-    private enum Status { Active, Inactive }
+    [UsedImplicitly]
+    private class Person : Vertex;
+
+    private enum Status
+    {
+        Active,
+        Inactive
+    }
 
     [Fact]
     public void HasId_WithStringId_AppendsHasIdStep()
@@ -178,5 +187,13 @@ public class GraphTraversalTests
     {
         string result = G.AnonV.HasId("x");
         result.Is("__.hasId('x')");
+    }
+
+    [Fact]
+    public void Property_()
+    {
+        G.AddV<Person>(_tenantId).Property("Name", "Thiago")
+            .ToString()
+            .Is($"g.addV('Person').property('tenantId','{_tenantId}').property('Name','Thiago')");
     }
 }

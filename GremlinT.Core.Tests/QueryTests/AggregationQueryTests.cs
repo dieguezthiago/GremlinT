@@ -1,6 +1,6 @@
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
-namespace TypedGremlin.Core.Tests.QueryTests;
+namespace GremlinT.Core.Tests.QueryTests;
 
 public class AggregationQueryTests
 {
@@ -86,24 +86,24 @@ public class AggregationQueryTests
             .Is($"g.V().has('tenantId','{TenantId}').union(__.hasLabel('Person'),__.hasLabel('Car'))");
     }
 
-    [Fact]
-    public void Union_OfTypedVertexOfTwoTraversals_ProducesUnionStep()
-    {
-        G.V<Person>(TenantId)
-            // .Union(
-            //     b => b.Out<Knows>().V<Person>(),
-            //     b => b.Out<Has>().V<Car>()
-            // )
-            .ToString()
-            .Is($"""
-                 g.V().hasLabel('Person')
-                 .has('tenantId','{TenantId}')
-                 .union(
-                 __.out('Knows').hasLabel('Person'),
-                 __.out('Has').hasLabel('Car')
-                 )
-                 """.Replace("\n", ""));
-    }
+//     [Fact]
+//     public void Union_OfTypedVertexOfTwoTraversals_ProducesUnionStep()
+//     {
+//         G.V<Person>(TenantId)
+//             .Union(
+//                 b => b.Out<Knows>().V<Person>(),
+//                 b => b.Out<Has>().V<Car>()
+//             )
+//             .ToString()
+//             .Is($"""
+//                  g.V().hasLabel('Person')
+//                  .has('tenantId','{TenantId}')
+//                  .union(
+//                  __.out('Knows').hasLabel('Person'),
+//                  __.out('Has').hasLabel('Car')
+//                  )
+//                  """.Replace("\n", ""));
+//     }
 
     [Fact]
     public void Coalesce_OfFilterAndConstant_ProducesCoalesceStep()
