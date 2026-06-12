@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
 
 jobs:
   publish:
@@ -35,4 +36,8 @@ jobs:
         run: |
           OIDC_TOKEN=$(curl -sS -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
             "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=nuget.org" | jq -r '.value')
+          if [ -z "$OIDC_TOKEN" ] || [ "$OIDC_TOKEN" = "null" ]; then
+            echo "ERROR: Failed to obtain OIDC token from GitHub."
+            exit 1
+          fi
           dotnet nuget push ./nupkg/*.nupkg --api-key "$OIDC_TOKEN" --source https://api.nuget.org/v3/index.json --skip-duplicate
