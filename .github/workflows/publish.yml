@@ -33,7 +33,7 @@ jobs:
         run: dotnet pack GremlinT.Core/GremlinT.Core.csproj --configuration Release --no-build --output ./nupkg
 
       - name: NuGet login
-        uses: NuGet/login@v3
+        uses: NuGet/login@v1
         id: nuget-login
 
       - name: Push to NuGet
