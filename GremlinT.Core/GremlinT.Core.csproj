@@ -4,6 +4,17 @@
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <PackageId>GremlinT</PackageId>
+        <Authors>Thiago Dieguez</Authors>
+        <Description>Fluent Gremlin query builder for .NET</Description>
+        <RepositoryUrl>https://github.com/dieguezthiago/GremlinT</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MinVer" Version="6.*" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers" />
+    </ItemGroup>
 
 </Project>
