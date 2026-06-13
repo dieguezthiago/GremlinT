@@ -1,4 +1,4 @@
-﻿using GremlinT.Core.Abstractions;
+using GremlinT.Core.Abstractions;
 using JetBrains.Annotations;
 
 namespace GremlinT.Core.Tests;
@@ -8,21 +8,22 @@ public class VertexQueryTTests
     private static readonly Guid TenantId = Guid.Parse("11111111-1111-1111-1111-111111111111");
 
     [UsedImplicitly]
-    private class Person : Vertex
+    private class Person : IVertex
     {
+        public Guid Id { get; set; }
         public string Name { get; set; } = "";
         public int Age { get; set; }
         public bool HasHouse { get; set; }
     }
 
     [UsedImplicitly]
-    private class Employee : Vertex;
+    private class Employee : IVertex { public Guid Id { get; set; } }
 
     [UsedImplicitly]
-    private class Car : Vertex;
+    private class Car : IVertex { public Guid Id { get; set; } }
 
     [UsedImplicitly]
-    private class Owns : Edge;
+    private class Owns : IEdge { public Guid Id { get; set; } }
 
     [UsedImplicitly]
     private class PersonView

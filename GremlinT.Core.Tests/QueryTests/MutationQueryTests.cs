@@ -1,4 +1,4 @@
-﻿using GremlinT.Core.Abstractions;
+using GremlinT.Core.Abstractions;
 using JetBrains.Annotations;
 
 namespace GremlinT.Core.Tests.QueryTests;
@@ -8,13 +8,13 @@ public class MutationQueryTests
     private static readonly Guid TenantId = Guid.Parse("11111111-1111-1111-1111-111111111111");
 
     [UsedImplicitly]
-    private class Person : Vertex;
+    private class Person : IVertex { public Guid Id { get; set; } }
 
     [UsedImplicitly]
-    private class Car : Vertex;
+    private class Car : IVertex { public Guid Id { get; set; } }
 
     [UsedImplicitly]
-    private class Knows : Edge;
+    private class Knows : IEdge { public Guid Id { get; set; } }
 
     [Fact]
     public void AddV_WithTypedVertex_ProducesAddVStep()

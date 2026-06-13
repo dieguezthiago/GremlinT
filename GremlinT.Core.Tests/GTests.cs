@@ -1,4 +1,4 @@
-﻿using GremlinT.Core.Abstractions;
+using GremlinT.Core.Abstractions;
 using JetBrains.Annotations;
 
 namespace GremlinT.Core.Tests;
@@ -10,10 +10,10 @@ public class GTests
     private static readonly FullyQualifiedId FqId = new(TenantId, ElementId);
 
     [UsedImplicitly]
-    private class Person : Vertex;
+    private class Person : IVertex { public Guid Id { get; set; } }
 
     [UsedImplicitly]
-    private class Knows : Edge;
+    private class Knows : IEdge { public Guid Id { get; set; } }
 
     [Fact]
     public void V_WithTenantId_StartsWithGvAndHasTenantId()

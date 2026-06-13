@@ -4,7 +4,7 @@ using GremlinT.Core.Abstractions;
 namespace GremlinT.Core;
 
 public class VertexProjection<TVertex, TResult> : VertexProjection<TResult>
-    where TVertex : Vertex
+    where TVertex : IVertex
 {
     internal VertexProjection(StringBuilder sb) : base(sb)
     {

@@ -13,7 +13,7 @@ public abstract class VertexQueryBase<TSelf>(
         return Write($".in('{label}')");
     }
 
-    public VertexQuery In<TEdge>() where TEdge : Edge
+    public VertexQuery In<TEdge>() where TEdge : IEdge
     {
         In(LabelResolver.For<TEdge>());
         return new VertexQuery(Sb);
@@ -24,7 +24,7 @@ public abstract class VertexQueryBase<TSelf>(
         return Write($".out('{label}')");
     }
 
-    public VertexQuery Out<TEdge>() where TEdge : Edge
+    public VertexQuery Out<TEdge>() where TEdge : IEdge
     {
         Out(LabelResolver.For<TEdge>());
         return new VertexQuery(Sb);
@@ -36,7 +36,7 @@ public abstract class VertexQueryBase<TSelf>(
         return new EdgeQuery(Sb);
     }
 
-    public EdgeQuery InE<TEdge>() where TEdge : Edge
+    public EdgeQuery InE<TEdge>() where TEdge : IEdge
     {
         return InE(LabelResolver.For<TEdge>());
     }
@@ -47,7 +47,7 @@ public abstract class VertexQueryBase<TSelf>(
         return new EdgeQuery(Sb);
     }
 
-    public EdgeQuery OutE<TEdge>() where TEdge : Edge
+    public EdgeQuery OutE<TEdge>() where TEdge : IEdge
     {
         return OutE(LabelResolver.For<TEdge>());
     }
@@ -57,7 +57,7 @@ public abstract class VertexQueryBase<TSelf>(
         return Write($".addV('{label}')");
     }
 
-    public TSelf AddV<TVertex>() where TVertex : Vertex
+    public TSelf AddV<TVertex>() where TVertex : IVertex
     {
         return AddV(LabelResolver.For<TVertex>());
     }

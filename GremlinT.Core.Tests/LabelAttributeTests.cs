@@ -12,17 +12,17 @@ public class LabelAttributeTests
 
     [Label("human")]
     [UsedImplicitly]
-    private class Person : Vertex;
+    private class Person : IVertex { public Guid Id { get; set; } }
 
     [Label("drives")]
     [UsedImplicitly]
-    private class Owns : Edge;
+    private class Owns : IEdge { public Guid Id { get; set; } }
 
     [UsedImplicitly]
-    private class Car : Vertex;
+    private class Car : IVertex { public Guid Id { get; set; } }
 
     [UsedImplicitly]
-    private class HasCar : Edge;
+    private class HasCar : IEdge { public Guid Id { get; set; } }
 
     [Fact]
     public void AddV_WithLabelAttribute_UsesAttributeName()

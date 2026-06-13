@@ -5,7 +5,7 @@ using GremlinT.Core.Abstractions;
 namespace GremlinT.Core;
 
 public class VertexQuery<T> : VertexQueryBase<VertexQuery<T>>
-    where T : Vertex
+    where T : IVertex
 {
     internal VertexQuery(StringBuilder sb) : base(sb)
     {

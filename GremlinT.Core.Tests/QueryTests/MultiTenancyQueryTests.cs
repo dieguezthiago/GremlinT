@@ -1,4 +1,4 @@
-﻿using GremlinT.Core.Abstractions;
+using GremlinT.Core.Abstractions;
 using JetBrains.Annotations;
 
 namespace GremlinT.Core.Tests.QueryTests;
@@ -10,22 +10,24 @@ public class MultiTenancyQueryTests
     private static readonly FullyQualifiedId FqId = new(TenantId, ElementId);
 
     [UsedImplicitly]
-    private class Person : Vertex
+    private class Person : IVertex
     {
+        public Guid Id { get; set; }
         public string Name { get; set; } = "";
     }
 
     [UsedImplicitly]
-    private class Car : Vertex
+    private class Car : IVertex
     {
+        public Guid Id { get; set; }
         public string Make { get; set; } = "";
     }
 
     [UsedImplicitly]
-    private class Owns : Edge;
+    private class Owns : IEdge { public Guid Id { get; set; } }
 
     [UsedImplicitly]
-    private class Knows : Edge;
+    private class Knows : IEdge { public Guid Id { get; set; } }
 
     [Fact]
     public void TenantId_IsNotRepeated_AfterMultiHopTraversal()
