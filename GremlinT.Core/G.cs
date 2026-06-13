@@ -46,7 +46,7 @@ public static class G
     public static EdgeQuery E<T>(Guid tenantId)
         where T : Edge
     {
-        return E(tenantId).HasLabel(typeof(T).Name);
+        return E(tenantId).HasLabel(LabelResolver.For<T>());
     }
 
     public static EdgeQuery E(FullyQualifiedId fullyQualifiedId)
@@ -58,7 +58,7 @@ public static class G
     public static EdgeQuery E<T>(FullyQualifiedId fullyQualifiedId)
         where T : Edge
     {
-        return E(fullyQualifiedId).HasLabel(typeof(T).Name);
+        return E(fullyQualifiedId).HasLabel(LabelResolver.For<T>());
     }
 
     public static VertexQuery AddV(Guid tenantId, string label)
@@ -71,7 +71,7 @@ public static class G
     public static VertexQuery<T> AddV<T>(Guid tenantId) where T : Vertex
     {
         return new VertexQuery<T>(new StringBuilder(
-            $"g.addV('{typeof(T).Name}')"
+            $"g.addV('{LabelResolver.For<T>()}')"
         )).WithTenantId(tenantId);
     }
 
@@ -84,6 +84,6 @@ public static class G
 
     public static VertexQuery AddV<T>(FullyQualifiedId fullyQualifiedId)
     {
-        return AddV(fullyQualifiedId, typeof(T).Name);
+        return AddV(fullyQualifiedId, LabelResolver.For<T>());
     }
 }

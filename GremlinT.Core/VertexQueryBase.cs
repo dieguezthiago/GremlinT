@@ -15,7 +15,7 @@ public abstract class VertexQueryBase<TSelf>(
 
     public VertexQuery In<TEdge>() where TEdge : Edge
     {
-        In(typeof(TEdge).Name);
+        In(LabelResolver.For<TEdge>());
         return new VertexQuery(Sb);
     }
 
@@ -26,7 +26,7 @@ public abstract class VertexQueryBase<TSelf>(
 
     public VertexQuery Out<TEdge>() where TEdge : Edge
     {
-        Out(typeof(TEdge).Name);
+        Out(LabelResolver.For<TEdge>());
         return new VertexQuery(Sb);
     }
 
@@ -38,7 +38,7 @@ public abstract class VertexQueryBase<TSelf>(
 
     public EdgeQuery InE<TEdge>() where TEdge : Edge
     {
-        return InE(typeof(TEdge).Name);
+        return InE(LabelResolver.For<TEdge>());
     }
 
     public EdgeQuery OutE(string label)
@@ -49,7 +49,7 @@ public abstract class VertexQueryBase<TSelf>(
 
     public EdgeQuery OutE<TEdge>() where TEdge : Edge
     {
-        return OutE(typeof(TEdge).Name);
+        return OutE(LabelResolver.For<TEdge>());
     }
 
     public TSelf AddV(string label)
@@ -59,7 +59,7 @@ public abstract class VertexQueryBase<TSelf>(
 
     public TSelf AddV<TVertex>() where TVertex : Vertex
     {
-        return AddV(typeof(TVertex).Name);
+        return AddV(LabelResolver.For<TVertex>());
     }
 
     public EdgeQuery AddE(string label)
@@ -70,7 +70,7 @@ public abstract class VertexQueryBase<TSelf>(
 
     public EdgeQuery AddE<TEdge>()
     {
-        return AddE(typeof(TEdge).Name);
+        return AddE(LabelResolver.For<TEdge>());
     }
 
     public TSelf Properties(params string[] keys)

@@ -67,7 +67,7 @@ public abstract class GraphTraversal<TSelf>(
 
     public TSelf HasLabel<T>()
     {
-        return HasLabel(typeof(T).Name);
+        return HasLabel(LabelResolver.For<T>());
     }
 
     public TSelf Where(GraphTraversal subTraversal)

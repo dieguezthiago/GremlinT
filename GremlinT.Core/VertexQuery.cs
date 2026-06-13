@@ -12,7 +12,7 @@ public class VertexQuery : VertexQueryBase<VertexQuery>
 	public VertexQuery<TVertex> V<TVertex>()
 		where TVertex : Vertex
 	{
-		HasLabel(typeof(TVertex).Name);
+		HasLabel(LabelResolver.For<TVertex>());
 		return new VertexQuery<TVertex>(Sb);
 	}
 }
